@@ -18,7 +18,11 @@ struct iOSApp: App {
             TabView {
                 
                 NavigationView {
-                    ContentView(viewModel: viewModel)
+                    // Call site for ContentView (where you create an instance of something)
+                    ContentView(viewModel: viewModel,
+                                temperature: viewModel.history.last!.temperature,
+                                feel: viewModel.history.last!.feel,
+                                conditions: viewModel.history.last!.condition.description)
                 }
                 .tabItem {
                     Image(systemName: "sun.haze.fill")
