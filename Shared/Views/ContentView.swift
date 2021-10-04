@@ -15,20 +15,28 @@ struct ContentView: View {
     @State var temperature: Double
     
     @State var feel: String
-
+    
     @State var conditions: String
-
+    
     var body: some View {
-
+        
         VStack {
             
             Spacer()
             
             Text("\(conditions)")
+#if os(iOS)
                 .font(.title)
-
+#else
+                .font(.title3)
+#endif
+            
             Text("\(String(format: "%.1f", arguments: [temperature])) °C")
+#if os(iOS)
                 .font(.largeTitle)
+#else
+                .font(.title)
+#endif
                 .bold()
             
             Text("\(feel)")
@@ -51,7 +59,7 @@ struct ContentView: View {
             }
             
             Spacer()
-
+            
             
         }
         .navigationTitle("Current")
@@ -61,7 +69,7 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     @StateObject private static var viewModel = WeatherViewModel()
-
+    
     static var previews: some View {
         ContentView(viewModel: viewModel,
                     temperature: viewModel.history.last!.temperature,
